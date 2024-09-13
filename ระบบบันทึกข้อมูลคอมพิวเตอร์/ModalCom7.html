@@ -1,0 +1,340 @@
+<!-- Add modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onload="">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-bottom-0 text-center">
+          <h1 class="modal-title fs-5 " id="exampleModalLabel"><i class='fa-solid fa-desktop'></i> บันทึกข้อมูลคอมพิวเตอร์</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSuccess"></button>
+        </div>
+        <div class="modal-body">
+          <form id="myForm" class="p-2 border border-light rounded" onsubmit="handleFormSubmit(this)"> 
+            <input type="hidden" id="RecId" name="sheetName" value="COM7">
+            <div class="form-group mb-3">
+              <label for="comcode-insert" ><strong>รหัสเครื่อง <span class="text-danger">*</span></strong></label>
+              <input type="text" class="form-control" id="comcode-insert" name="comcodeInsert" placeholder="ตัวอย่าง: COM-01" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="comcode-insert" ><strong>ซีพียู <span class="text-danger">*</span></strong></label>
+              <input type="text" class="form-control" id="cpu-insert" name="cpuInsert" placeholder="ตัวอย่าง: AMD Ryzen 5" required>
+            </div>
+            <div class="form-row mb-3">
+              <p><strong>แรม <span class="text-danger">*</strong></p>
+              <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="4" name="ramInsert" value="4" required>
+                    <label class="form-check-label" for="4">4 GB</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="8" name="ramInsert" value="8" required>
+                    <label class="form-check-label" for="8">8 GB</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="16" name="ramInsert" value="16" required>
+                    <label class="form-check-label" for="16">16 GB</label>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="comcode-insert" ><strong>ขนาดจอ(นิ้ว) <span class="text-danger">*</span></strong></label>
+              <input type="text" class="form-control" id="screen-insert" name="screenInsert" placeholder="ตัวอย่าง: 80 x 60Hz" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="com-detail" ><strong>รายละเอียดอื่นๆ <span class="text-danger">*</strong></label>
+              <textarea class="form-control" id="comdetail-insert" name="comdetailInsert" cols="30" rows="3" placeholder="ตัวอย่าง: AMD Ryzen 5 5600H with Radeon Graphics" required></textarea>
+            </div>
+            <div class="form-group mb-4">
+              <label for="bd-insert"><strong>ตึก <span class="text-danger">*</span></strong></label>
+              <select class="form-control" id="bd-insert" name="bdInsert" required>
+                <option value="">เลือก</option>
+                <option value="7" selected>ตึก7</option>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <label for="room-insert"><strong>ห้อง <span class="text-danger">*</span></strong></label>
+              <select class="form-control" id="room-insert" name="roomInsert" required>
+                <option value="">เลือก</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                  <p><strong>โปรแกรม <span class="text-danger">*</span></strong></p>
+                  <div class="ms-auto">
+                    <label class="form-check-label" for="checkAll">เลือกทั้งหมด</label>
+                    <input class="form-check-input program-insert" type="checkbox" id="checkAll">
+                  </div>
+                </div>
+                <div>
+                  <input class="form-check-input program-insert" type="checkbox" id="msword" name="programsInsert" value="Microsoft Word">
+                  <label class="form-check-label" for="msword">Microsoft Word</label>  
+                </div>
+                <div>
+                  <input class="form-check-input program-insert" type="checkbox" id="msexc" name="programsInsert" value="Microsoft Excel">
+                  <label class="form-check-label" for="msexc">Microsoft Excel</label>
+                </div>
+                <div>
+                  <input class="form-check-input program-insert" type="checkbox" id="mspp" name="programsInsert" value="Microsoft PowerPoint">
+                  <label class="form-check-label" for="mspp">Microsoft PowerPoint</label>
+                </div>
+                <div>
+                  <input class="form-check-input program-insert" type="checkbox" id="msac" name="programsInsert" value="Microsoft Access">
+                  <label class="form-check-label" for="msac">Microsoft Access</label>
+                </div>
+                <div>
+                  <input class="form-check-input program-insert" type="checkbox" id="ps" name="programsInsert" value="Adobe Photoshop">
+                  <label class="form-check-label" for="ps">Adobe Photoshop</label>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="com-detail" ><strong>โปรแกรมอื่นๆ <span class="text-danger">*</span></strong></label>
+              <textarea class="form-control" id="programs-detail-insert" name="programsDetailInsert" cols="30" rows="3" placeholder="ตัวอย่าง: Vscode Xampp" required></textarea>
+            </div>
+            <div class="form-row mb-3">
+              <p><strong>สถานะ <span class="text-danger">*</span></strong></p>
+              <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pass" name="statusInsert" value="พร้อมใช้งาน" required>
+                    <label class="form-check-label" for="pass">พร้อมใช้งาน</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="fail" name="statusInsert" value="ไม่พร้อมใช้งาน" required>
+                    <label class="form-check-label" for="fail">ไม่พร้อมใช้งาน</label>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <label for="admin-insert"><strong>เจ้าหน้าที่เก็บข้อมูล <span class="text-danger">*</span></strong></label>
+              <select class="form-control" id="admin-insert" name="adminInsert" required>
+                <option value="">เลือก</option>
+              </select>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <div>
+                <button type="submit" class="btn btn-sm btn-success"><i class="fa-solid fa-save"></i> บันทึกข้อมูล</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Edit modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-bottom-0">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class='fa-solid fa-pen-to-square'></i> แก้ไขข้อมูลคอมพิวเตอร์</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSuccess"></button>
+        </div>
+        <div class="modal-body">
+          <form id="myForm" class="p-3 border border-light rounded" onsubmit="handleEditFormSubmit(this)"> 
+            <input type="text" class="form-control d-none" name="sheetNameEdit" value="COM7">
+            <!-- <div class="form-group mb-3">
+              <label for="com-code" ><strong>ไอดี:</strong></label>
+              <input type="text" class="form-control input-group-text RecId" name="recIdEdit" value="" readonly>
+            </div> -->
+            <input type="hidden" class="form-control input-group-text RecId" name="recIdEdit" value="" readonly>
+            <div class="form-group mb-3">
+              <label for="comcode-edit" ><strong>รหัสเครื่อง:</strong></label>
+              <input type="text" class="form-control" id="comcode-edit" name="comcodeEdit" value="" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="cpu-edit" ><strong>ซีพียู <span class="text-danger">*</strong></label>
+              <input type="text" class="form-control" id="cpu-edit" name="cpuEdit" required>
+            </div>
+            <div class="form-row mb-3">
+              <p><strong>แรม:</strong></p>
+              <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="4" name="ramEdit" value="4" required>
+                    <label class="form-check-label" for="4">4 GB</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="8" name="ramEdit" value="8" required>
+                    <label class="form-check-label" for="8">8 GB</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="16" name="ramEdit" value="16" required>
+                    <label class="form-check-label" for="16">16 GB</label>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="screen-edit" ><strong>ขนาดจอ(นิ้ว):</strong></label>
+              <input type="text" class="form-control" id="screen-edit" name="screenEdit">
+            </div>
+            <div class="form-group mb-3">
+              <label for="com-detail" ><strong>รายละเอียดเครื่อง:</strong></label>
+              <textarea class="form-control" id="comdetail-edit" name="comdetailEdit" cols="30" rows="3"></textarea>
+            </div>
+            <div class="form-group mb-4">
+              <label for="bd-edit"><strong>ตึก:</strong></label>
+              <select class="form-control" id="bd-edit" name="bdEdit">
+                <option value="">เลือก</option>
+                <option value="7">ตึก3</option>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <label for="room"><strong>ห้อง:</strong></label>
+              <select class="form-control" id="room-edit" name="roomEdit"></select>
+            </div>
+            <div class="form-group mb-3">
+                <p><strong>โปรแกรม:</strong></p>
+                <div id="checkbox-edit">
+                  <div>
+                    <input class="form-check-input program-edit" type="checkbox" id="msword" name="programsEdit" value="Microsoft Word">
+                    <label class="form-check-label" for="msword">Microsoft Word</label>  
+                  </div>
+                  <div>
+                    <input class="form-check-input program-edit" type="checkbox" id="msexc" name="programsEdit" value="Microsoft Excel">
+                    <label class="form-check-label" for="msexc">Microsoft Excel</label>
+                  </div>
+                  <div>
+                    <input class="form-check-input program-edit" type="checkbox" id="mspp" name="programsEdit" value="Microsoft PowerPoint">
+                    <label class="form-check-label" for="mspp">Microsoft PowerPoint</label>
+                  </div>
+                  <div>
+                    <input class="form-check-input program-edit" type="checkbox" id="msac" name="programsEdit" value="Microsoft Access">
+                    <label class="form-check-label" for="msac">Microsoft Access</label>
+                  </div>
+                  <div>
+                    <input class="form-check-input program-edit" type="checkbox" id="ps" name="programsEdit" value="Adobe Photoshop">
+                    <label class="form-check-label" for="ps">Adobe Photoshop</label>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="com-detail" ><strong>โปรแกรมอื่นๆ:</strong></label>
+              <textarea class="form-control" id="programs-detail-edit" name="programsDetailEdit" cols="30" rows="3"></textarea>
+            </div>
+            <div class="form-row mb-3">
+              <p><strong>สถานะ:</strong></p>
+              <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="pass" name="statusEdit" value="พร้อมใช้งาน">
+                    <label class="form-check-label" for="pass">พร้อมใช้งาน</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="fail" name="statusEdit" value="ไม่พร้อมใช้งาน">
+                    <label class="form-check-label" for="fail">ไม่พร้อมใช้งาน</label>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <label for="admin-edit"><strong>เจ้าหน้าที่เก็บข้อมูล:</strong></label>
+              <select class="form-control" id="admin-edit" name="adminEdit"></select>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <div>
+                <button type="submit" class="btn btn-sm btn-success"><i class='fa-solid fa-pen-to-square'></i> อัปเดตข้อมูล</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  
+    $('#checkAll').click(function() {
+      $('.program-insert').prop('checked', this.checked);
+    });
+  
+    // When any individual checkbox is clicked
+    $('.program-insert').click(function() {
+        if ($('.program-insert:checked').length == $('.program-insert').length) {
+            $('#checkAll').prop('checked', true);
+        } else {
+            $('#checkAll').prop('checked', false);
+        }
+    });
+    
+    google.script.run.withSuccessHandler(function(options) {
+      var dropdown = document.getElementById('admin-insert');
+      options.forEach(function(option) {
+        var opt = document.createElement('option');
+        opt.value = option;
+        opt.innerHTML = option;
+        dropdown.appendChild(opt);
+      });
+    }).getDropdownOptions();
+  
+    google.script.run.withSuccessHandler(function(options) {
+      var dropdown = document.getElementById('admin-edit');
+      options.forEach(function(option) {
+        var opt = document.createElement('option');
+        opt.value = option;
+        opt.innerHTML = option;
+        dropdown.appendChild(opt);
+      });
+    }).getDropdownOptions();
+    
+    google.script.run.withSuccessHandler(function(options) {
+      var dropdown = document.getElementById('room-insert');
+      options.forEach(function(option) {
+        var opt = document.createElement('option');
+        opt.value = option;
+        opt.innerHTML = option;
+        dropdown.appendChild(opt);
+      });
+    }).getDropdownOptions7();
+  
+    google.script.run.withSuccessHandler(function(options) {
+      var dropdown = document.getElementById('room-edit');
+      options.forEach(function(option) {
+        var opt = document.createElement('option');
+        opt.value = option;
+        opt.innerHTML = option;
+        dropdown.appendChild(opt);
+      });
+    }).getDropdownOptions7();
+    
+    // ========== Script Insert Data ==========
+    function preventFormSubmit(){
+      var forms=document.querySelectorAll('form');
+      for (var i=0;i<forms.length;i++){
+        forms[i].addEventListener('submit',function(event){
+          event.preventDefault();
+        });
+      }
+    }
+    window.addEventListener('load',preventFormSubmit);
+  
+    function handleFormSubmit(formObject){
+      google.script.run.processForm(formObject);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'เพิ่มข้อมูลสำเร็จ',
+        showConfirmButton: true,
+      }).then((result) => {
+          if (result.value) {
+            google.script.run.withSuccessHandler(showData).getData('COM7');
+          }
+        });
+      document.getElementById("myForm").reset();
+    }
+  
+    // ========== Script Edit Data ==========
+    function handleEditFormSubmit(formObject){
+      google.script.run.processEditForm(formObject);
+      Swal.fire({
+        title: "ต้องการบันทึกการเปลี่ยนแปลงหรือไม่?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "บันทึก",
+        denyButtonText: "ไม่",
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire("บันทึกข้อมูลสำเร็จ!", "", "success");
+          google.script.run.withSuccessHandler(showData).getData('COM7');
+          $('#editModal').modal('hide');
+        } else if (result.isDenied) {
+          Swal.fire("การเปลี่ยนแปลงจะไม่ได้รับการบันทึก", "", "info");
+        }
+      });
+    }
+  </script>

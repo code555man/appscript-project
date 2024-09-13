@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+  <style>
+    body{
+      background-color: #eee;
+    }
+    .table-container {
+      max-height: 400px; /* กำหนดความสูงสูงสุดของตาราง */
+      overflow-y: auto; /* เปิดใช้งานการเลื่อนลง */
+      display: block; /* ทำให้ตารางสามารถเลื่อนลงได้ */
+    }
+    table {
+      width: 75%; /* ให้ตารางเต็มความกว้างขององค์ประกอบที่ห่อหุ้ม */
+    }
+    th, td {
+      white-space: nowrap; /* ป้องกันการตัดบรรทัดอัตโนมัติในเซลล์ */
+    }
+  </style>
+</head>
+<body>
+  <div style="margin-top: 6rem;" class="container d-flex justify-content-center">
+    <div class="card shadow my-5 p-4" style="width: 40rem;">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-center mb-5">
+          <h5 class="card-title mb-3 fw-bold"><i class="fa-solid fa-user-pen"></i> ลงชื่อเข้าใช้ห้องสมุด</h5>
+        </div>
+        <form id="signInForm" class="form-group">
+          <div class="d-flex input-group">
+            <span class="input-group-text text-white bg-dark me-2"><i class="fas fa-user"></i></span>
+            <input type="text" class="form-control me-2" id="studentId" name="studentId" placeholder="กรอกรหัสนักศึกษา*" maxlength="10" required>
+            <button id="btnSubmit" type="button" class="btn btn-sm btn-success"onclick="checkLogin()"><i class="fa-solid fa-save"></i> บันทึกข้อมูล</button>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" name="statusAccess" id="signin" value="signin" checked>
+              <label class="form-check-label" for="signin">
+                ลงชื่อเข้าใช้ห้องสมุด
+              </label>
+            </div>
+            <div class="form-check d-inline">
+              <input class="form-check-input" type="radio" name="statusAccess" id="logout" value="logout">
+              <label class="form-check-label" for="logout">
+                ลงชื่อออกจากห้องสมุด
+              </label>
+            </div>
+          </div>
+        </form>
+        <div id="content" class="alert alert-success mt-3 text-center" role="alert">
+          <div id="resultSuccess">
+            <!-- result here -->
+          </div>
+          <div class="mt-2">
+            <a href="#" class="text-decoration-none text-primary" data-bs-toggle='modal' data-bs-target='#logHistory'><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการเข้าใช้งานห้องสมุด</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center text-dark mt-0">
+    <p>Copyright &copy;<script>document.write(new Date().getFullYear())</script> | <a href="https://www.facebook.com/ARITSSKRU" class="text-dark fw-bold text-decoration-none"><img src="https://img2.pic.in.th/pic/272978196_302253305270068_6802695808492940439_n.th.png" width="30" height="30" alt=""> ARITSSKRU </a></p>
+  </footer>
+
+  <div class="modal fade" id="logHistory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onload="">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-bottom-0 text-center">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการเข้าใช้งานห้องสมุด</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSuccess"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-2">จำนวนการเข้าใช้งาน <span id="countSignin" class="badge text-bg-primary rounded-pill"></span> ครั้ง</div>
+          <div class="table-container">
+            <table class="table table-hover" id="dataTable">
+              <thead>
+                <tr>
+                  <th>รหัสนักศึกษา</th>
+                  <th>วัน-เวลาเข้า</th>
+                  <th>วัน-เวลาออก</th>
+                  <th>ชั่วโมงใช้งาน</th>
+                </tr>
+              </thead>
+              <tbody id="hisResult">
+                <!-- result here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+      
+    // ปิดการใช้งาน F12, Ctrl+Shift+I, Ctrl+Shift+C, และ Ctrl+U
+    document.onkeydown = function(e) {
+      if (e.key === "F12") {
+        // ปิดการใช้งาน F12
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) {
+        // ปิดการใช้งาน Ctrl+Shift+I, Ctrl+Shift+C, และ Ctrl+Shift+J
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.key === "U") {
+        // ปิดการใช้งาน Ctrl+U
+        e.preventDefault();
+      }
+    };
+
+    // ปิดการใช้งานการคลิกขวา
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('submitForm').addEventListener('keypress', disableEnterKey);
+    });
+
+    function disableEnterKey(event) {
+      if (event.keyCode === 13) { 
+        event.preventDefault();
+        return false;
+      }
+    }
+
+    $('#content').hide() // ซ่อนพื้นที่แสดงผลลัพธ์
+    
+    function checkLogin(){
+
+      var studentId = $('#studentId').val();  // ดึงค่าจากอินพุต
+      var status = $('input[name="statusAccess"]:checked').val(); // เก็บค่าสถานะการเข้าใช้งาน 
+      $('#btnSubmit').attr('disabled', true); // เช็ตให้ปุ่มกดไม่ได้
+
+      if(studentId !== ''){ // เช็คค่าว่างในอินพุต
+
+        if(studentId.length == 10){
+      
+          google.script.run.withSuccessHandler(function(response){
+            console.log(response)
+
+            if(response.status == 'signin' || response.status == 'logout'){
+
+              switch(response.status){
+
+                case "signin":
+
+                  $('#hisResult').html('');
+                  let resultTemplateSignin = `<i class="fa-solid fa-right-from-bracket"></i> ลงชื่อเข้าใช้ห้องสมุด: รหัสนักศึกษา <span class="fw-bold">${response.studentData}</span> เวลา <span class="fw-bold">${response.timeSignin}</span>`;
+                  $('#resultSuccess').html(resultTemplateSignin)
+
+                  var counter = response.studentLog.length;
+
+                  if (counter > 0){
+
+                    for(var i=0; i<response.studentLog.length; i++){
+                      var data = response.studentLog[i].split(',')
+                      var newBody = $(
+                      `<tr>
+                        <td>${data[0]}</td>
+                        <td>${data[1]}</td>
+                        <td>${data[2]}</td>
+                        <td>${data[3]}</td>
+                      </tr>`
+                      );  
+                      $('#countSignin').text(counter);
+                      $("#hisResult").append(newBody);
+                    }
+                  }
+
+                  $('#content').show()
+                  $('#signInForm')[0].reset();
+                  $('#btnSubmit').removeAttr('disabled');
+
+                  break;
+
+                case "logout":
+
+                  $('#hisResult').html('');
+                  let resultTemplateLogout = `<i class="fa-solid fa-right-from-bracket"></i> ลงชื่อออกจากห้องสมุด: รหัสนักศึกษา <span class="fw-bold">${response.studentData}</span> เวลา <span class="fw-bold">${response.timeLogout}</span>`;
+                  $('#resultSuccess').html(resultTemplateLogout)
+
+                  var counter = response.studentLog.length;
+
+                  if (counter > 0){
+
+                    for(var i=0; i<response.studentLog.length; i++){
+                      var data = response.studentLog[i].split(',')
+                      var newBody = $(
+                      `<tr>
+                        <td>${data[0]}</td>
+                        <td>${data[1]}</td>
+                        <td>${data[2]}</td>
+                        <td>${data[3]}</td>
+                      </tr>`
+                      );  
+                      $('#countSignin').text(counter);
+                      $("#hisResult").append(newBody);
+                    }
+                  }
+                  $('#content').show()
+                  $('#signInForm')[0].reset();
+                  $('#btnSubmit').removeAttr('disabled');
+                  break;
+              } 
+
+            }else if(response.status == null){
+
+              Swal.fire({
+                // title: "แจ้งแตือน!",
+                text: `รหัสนักศึกษา ${response.studentData} ยังไม่ได้ลงชื่อออกจากห้องสมุด!`,
+                icon: "warning"
+              });
+              $('#btnSubmit').removeAttr('disabled');
+
+            }else{
+
+              Swal.fire({
+                // title: "แจ้งแตือน!",
+                text: `รหัสนักศึกษา ${response.studentData} ยังไม่ได้ลงชื่อเข้าใช้งานห้องสมุด!`,
+                icon: "warning"
+              });
+              $('#btnSubmit').removeAttr('disabled');
+
+            }
+              
+          }).processForm(studentId,status)
+           
+        }else{
+
+          Swal.fire({
+            // title: "แจ้งแตือน!",
+            text: `รหัสนักศึกษาไม่ถูกต้อง!`,
+            icon: "warning"
+          });
+          // $('#hisResult').html('');
+          $('#btnSubmit').removeAttr('disabled');
+          $('#signInForm')[0].reset();
+
+        }
+        
+      }else{
+
+        Swal.fire({
+            // title: "แจ้งแตือน!",
+            text: `กรุณากรอกรหัสนักศึกษา!`,
+            icon: "warning"
+          });
+          // $('#hisResult').html('');
+          $('#btnSubmit').removeAttr('disabled');
+          $('#signInForm')[0].reset();
+
+      }
+    }
+    
+  </script>
+</body>
+</html>
+

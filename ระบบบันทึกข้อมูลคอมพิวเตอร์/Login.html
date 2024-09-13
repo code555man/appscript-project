@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบบันทึกข้อมูลคอมพิวเตอร์</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="sortcut icon" href="https://shorturl.at/mEewG">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <style>
+      html,body{
+          height: 100%;
+          font-family: 'Prompt', sans-serif;
+      }
+      
+      .mynav{
+          color: #fff;
+      }
+      
+      .mynav li a {
+          color: #fff;
+          text-decoration: none;
+          width: 100%;
+          display: block;
+          border-radius: 5px;
+          padding: 8px 5px;
+      }
+      
+      .mynav li a.active{
+          background: rgba(255,255,255,0.2);
+      }
+      
+      .mynav li a:hover{
+          background: rgba(255,255,255,0.2);
+      }
+      
+      .mynav li a i{
+          width: 25px;
+          text-align: center;
+      }
+      
+      .notification-badge{
+          background-color: rgba(255,255,255,0.7);
+          float: right;
+          color: #222;
+          font-size: 14px;
+          padding: 0px 8px;
+          border-radius: 2px;
+      }
+    </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-5 d-flex align-items-center justify-content-center">
+          <div>
+            <div class="card">
+              <div class="card-body p-5">
+                <div class="text-center">
+                    <img class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3 text-center" src="https://shorturl.at/6kQ7W" width="250px" height="200px" alt="" class="img-fluid">
+                </div>
+                <? var url = getScriptURL();?>
+                <form class="form-group" method="post" action="<?= url ?>">
+                    <div class="mb-3">
+                        <!-- <label for="username" class="form-label">ชื่อผู้ใช้</label> -->
+                        <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้...">
+                    </div>
+                    <div class="mb-3">
+                        <!-- <label for="password" class="form-label">รหัสผ่าน</label> -->
+                        <input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน...">
+                    </div>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-success w-100" value="Login" name="LoginButton"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
+                      <span><?= message ?></span> 
+                    </div>
+                </form>
+                <footer class="text-center text-dark mb-2 ">
+                  <p><a href="https://www.facebook.com/ARITSSKRU" class="text-dark fw-bold"> ARITSSKRU</a> &copy;<script>document.write(new Date().getFullYear())</script> All rights reserved. </p>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

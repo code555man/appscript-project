@@ -1,0 +1,82 @@
+<div class="modal fade" id="detailModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onload="">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-bottom-0 text-center">
+          <h1 class="modal-title fs-5 " id="exampleModalLabel"><i class='fa-solid fa-desktop'></i> คอมพิวเตอร์ ตึก3</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSuccess"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group" id="roomCOM3"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="detailModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onload="">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-bottom-0 text-center">
+          <h1 class="modal-title fs-5 " id="exampleModalLabel"><i class='fa-solid fa-desktop'></i> คอมพิวเตอร์ ตึก7</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSuccess"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group" id="roomCOM7"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="detailModalLIB" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onload="">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4">
+        <div class="modal-header border-bottom-0 text-center">
+          <h1 class="modal-title fs-5 " id="exampleModalLabel"><i class='fa-solid fa-desktop'></i> คอมพิวเตอร์ ตึกห้องสมุด</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSuccess"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group" id="roomCOMLIB"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  
+    google.script.run.withSuccessHandler(function(items) {
+      for(var i=0; i<items.room.length; i++){
+        var newListItem = $(
+          `<li class="list-group-item d-flex justify-content-between fw-bold">
+          <div>ห้อง <span class="badge text-bg-secondary rounded-pill">${items.room[i]}</span></div>
+          <div><i class='fa-solid fa-desktop'></i> จำนวนเครื่อง <span class="badge text-bg-primary rounded-pill">${items.comCounter[i]}</span></div>
+          <div><i class='text-success fa-solid fa-check-to-slot'></i> พร้อมใช้งาน <span class="badge text-bg-primary rounded-pill">${items.comStatusCounter[i]}</span></div>
+          </li>`
+        );  
+        $("#roomCOM3").append(newListItem);
+      }
+    }).getRoomCOM3();
+    google.script.run.withSuccessHandler(function(items) {
+      for(var i=0; i<items.room.length; i++){
+        var newListItem = $(
+          `<li class="list-group-item d-flex justify-content-between fw-bold">
+          <div>ห้อง <span class="badge text-bg-secondary rounded-pill">${items.room[i]}</span></div>
+          <div><i class='fa-solid fa-desktop'></i> จำนวนเครื่อง <span class="badge text-bg-primary rounded-pill">${items.comCounter[i]}</span></div>
+          <div><i class='text-success fa-solid fa-check-to-slot'></i> พร้อมใช้งาน <span class="badge text-bg-primary rounded-pill">${items.comStatusCounter[i]}</span></div>
+          </li>`
+        );  
+        $("#roomCOM7").append(newListItem);
+      }
+    }).getRoomCOM7();
+    google.script.run.withSuccessHandler(function(items) {
+      for(var i=0; i<items.room.length; i++){
+        var newListItem = $(
+          `<li class="list-group-item d-flex justify-content-between fw-bold">
+          <div>ห้อง <span class="badge text-bg-secondary rounded-pill">${items.room[i]}</span></div>
+          <div><i class='fa-solid fa-desktop'></i> จำนวนเครื่อง <span class="badge text-bg-primary rounded-pill">${items.comCounter[i]}</span></div>
+          <div><i class='text-success fa-solid fa-check-to-slot'></i> พร้อมใช้งาน <span class="badge text-bg-primary rounded-pill">${items.comStatusCounter[i]}</span></div>
+          </li>`
+        );  
+        $("#roomCOMLIB").append(newListItem);
+      }
+    }).getRoomCOMLIB();
+  
+  </script>
