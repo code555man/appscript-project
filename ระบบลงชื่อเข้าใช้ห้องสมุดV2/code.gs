@@ -10,7 +10,7 @@ function include(filename) {
 // เช็ตข้อมูลชีตเริ่มต้น
 function initialSpreadsheets(){
   const data = {
-    spreadSheetID: '##############',
+    spreadSheetID: '#############',
     sheetNameSTUDENT_ID: 'STUDENT_ID',
     sheetNameSTUIDRange: 'STUDENT_ID!A2:A',
     sheetNameLOG: 'LOG',
@@ -195,8 +195,10 @@ function getLastTimeLogin(studentId){
 
 // เช็ควันที่ล็อคอินกับล็อคเอาต์
 function checkTimeLogin(studentId){
-
   var timeLogin = getLastTimeLogin(studentId)
+  // var checkInDate = Utilities.formatDate(new Date(timeLogin), Session.getScriptTimeZone(), "dd-MM-yyyy");
+  // // var checkInDate = timeLogin // แปลงเวลาเข้าเป็นรูปแบบวันที่
+  // var currentDate = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "dd-MM-yyyy");
 
   var checkInDate = new Date(timeLogin).toDateString(); 
   var currentDate = new Date().toDateString();
